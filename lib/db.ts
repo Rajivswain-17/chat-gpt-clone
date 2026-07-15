@@ -1,9 +1,5 @@
-import {PrismaPg} from "@prisma/adapter-pg";
-import {Prisma, PrismaClient} from "./generated/prisma/client"
-import { error } from "console";
-import { adapter } from "next/dist/server/web/adapter";
-
-
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "./generated/prisma/client";
 
 const globalForPrisma = globalThis as unknown as {
     prisma: PrismaClient | undefined;
@@ -14,11 +10,11 @@ const globalForPrisma = globalThis as unknown as {
 function createPrismaClient() {
     const url = process.env.DATABASE_URL;
     if(!url) {
-        throw new error("DATABASE_URL IS NOT SET");
+        throw new Error("DATABASE_URL is not set");
     }
 
-    const adapter = new PrismaPg{( connectionString: url)};
-    return new PrismaClient{( adapter)};
+    const adapter = new PrismaPg({ connectionString: url });
+    return new PrismaClient({ adapter });
 
 }
 
